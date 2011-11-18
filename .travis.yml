@@ -1,7 +1,7 @@
 rvm:
   - rbx-2.0
 
-script: "bundle exec rake clean cucumber"
+script: "bundle exec rake clean test cucumber"
 
 gemfile:
   - gemfiles/rails2.gemfile
