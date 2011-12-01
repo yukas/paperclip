@@ -8,11 +8,13 @@ module Paperclip
     end
 
     def for(style_name, options)
-      escape_url_as_needed(
-        timestamp_as_needed(
-          @attachment_options.interpolator.interpolate(most_appropriate_url, @attachment, style_name),
-          options
-      ), options)
+      url = timestamp_as_needed(
+        @attachment_options.interpolator.interpolate(most_appropriate_url,
+          @attachment, style_name), options)
+          
+      url = (url =~ /%d/) ? url % (Zlib.crc32(url) % 4) : url
+      
+      escape_url_as_needed(url, options)
     end
 
     private
